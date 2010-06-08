@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.mxro.xstream</groupId>
+  <artifactId>mxXStream</artifactId>
+  <version>0.0.2-SNAPSHOT</version>
+  <build>
+  
+  
+  	<!-- Resources -->
+    <resources>
+			<!-- This entry makes sure that resources, which lie in the same package as
+			     Java classes, are copied into the target. Often external libraries
+			     require resources, which are loaded using Class.getResource or
+			     Class.getResourceAsStream and which are in a subpackage of the class.
+			     For instance, the NetBeans template for the Swing Application Framework
+			     does so.  -->
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes> 
+			</resource>
+			<!-- This entry makes sure component definitions for OSGi declarative services
+			     are copied into the destination  -->
+			<resource>
+				<targetPath>OSGI-INF</targetPath>
+				<filtering>false</filtering>
+				<directory>OSGI-INF</directory>
+			    <includes>
+					<include>**</include>
+				</includes>
+			</resource>
+			<!-- I really do not know why know a manual entry for src/main/resources is 
+			     necessary? It should be included following the Maven convention. -->
+			<resource>		
+				<filtering>false</filtering>
+				<directory>src/main/resources</directory>
+			    <includes>
+					<include>**</include>
+				</includes>
+			</resource>
+			
+			<resource>
+              <directory>${basedir}/target/dependency</directory>
+    
+            </resource>
+    </resources>
+    <!-- Resources End -->    
+    
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+      	<groupId>org.apache.maven.plugins</groupId>
+      	<artifactId>maven-jar-plugin</artifactId>
+      	<configuration>
+      		<archive>
+      			<manifestFile>META-INF/MANIFEST.MF</manifestFile>
+      		</archive>
+        </configuration>
+      </plugin> 
+      
+    
+       <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>de.mxro.incl.xstream</groupId>
+                  <artifactId>inclXStream</artifactId>
+                  <version>0.0.2</version>
+                </artifactItem>
+              </artifactItems>
+              
+            </configuration>
+          </execution>
+        </executions>
+      </plugin> 
+            
+    </plugins>
+  </build>
+  
+  <dependencies>
+  <dependency>
+  	<groupId>de.mxro.thrd.jtidy</groupId>
+  	<artifactId>thrdJTidy</artifactId>
+  	<version>[8.0.0,)</version>
+  	<optional>false</optional>
+  </dependency>
+  <dependency>
+  	<groupId>de.mxro.xml</groupId>
+  	<artifactId>mxXml</artifactId>
+  	<version>[0.0.2,)</version>
+  	<optional>false</optional>
+  </dependency>
+    <dependency>
+  	<groupId>de.mxro.incl.xstream</groupId>
+  	<artifactId>inclXStream</artifactId>
+  	<version>0.0.2</version>
+  	<optional>false</optional>
+  </dependency> 
+  </dependencies>
+  
+  
+  <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Internal Releases</name>
+            <url>http://STF-6121-DSK06.com.auckland.ac.nz:8080/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Internal Snapshots</name>
+            <url>http://STF-6121-DSK06.com.auckland.ac.nz:8080/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+  
+</project>
