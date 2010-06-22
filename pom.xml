@@ -3,6 +3,7 @@
   <groupId>de.mxro.xstream</groupId>
   <artifactId>mxXStream</artifactId>
   <version>0.0.2-SNAPSHOT</version>
+  <packaging>bundle</packaging>
   <build>
   
   
@@ -52,6 +53,81 @@
     <!-- Resources End -->    
     
     <plugins>
+       <!--  The Maven bundle plugin generates Meta-data required for OSGi  -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<unpackBundle>true</unpackBundle>
+					<instructions>
+						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Bundle-Version>${pom.version}</Bundle-Version>
+						  <Embed-Dependency>inclXStream;scope=compile|runtime;inline=false
+						</Embed-Dependency>
+						<Embed-Directory>target/dependency</Embed-Directory> 
+						<Export-Package>de.mxro.xstream,
+ de.mxro.xstream.definitions,
+ de.mxro.xstream.definitions.freemind,
+ de.mxro.xstream.filesystem.v01</Export-Package>
+                        <Import-Package>de.mxro.utils.log,
+ de.mxro.xml,org.w3c.tidy,!*</Import-Package> 
+						<!-- This statement can change the bundle classpath 
+						   <Bundle-ClassPath>.</Bundle-ClassPath> 
+						-->
+						<!-- This statements will use properties from the eclipse Manifest.MF file 
+						  <_include>META-INF/MANIFEST.MF</_include> 
+						-->
+					</instructions>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+
+				<executions>
+					<!--
+						This additional execution can extract all the JARs of the dependencies 
+						
+						<execution> <id>unpack-dependencies</id>
+						<phase>generate-resources</phase> <goals>
+						<goal>unpack-dependencies</goal> </goals> <configuration>
+						<includeGroupIds>org.swinglabs,org.jdesktop,com.sun</includeGroupIds>
+						</configuration> </execution>
+					-->
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!--  Cleanup necessary because of PDE tweaks -->
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${basedir}</directory>
+							<includes>
+								<include>*.jar</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+     
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
@@ -60,7 +136,7 @@
         </configuration>
       </plugin>
       
-      <plugin>
+      <!--  <plugin>
       	<groupId>org.apache.maven.plugins</groupId>
       	<artifactId>maven-jar-plugin</artifactId>
       	<configuration>
@@ -92,7 +168,7 @@
             </configuration>
           </execution>
         </executions>
-      </plugin> 
+      </plugin> -->
             
     </plugins>
   </build>
@@ -113,7 +189,7 @@
     <dependency>
   	<groupId>de.mxro.incl.xstream</groupId>
   	<artifactId>inclXStream</artifactId>
-  	<version>0.0.2</version>
+  	<version>[0.0.2,)</version>
   	<optional>false</optional>
   </dependency> 
   </dependencies>
