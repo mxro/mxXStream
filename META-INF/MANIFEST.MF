@@ -1,17 +1,30 @@
 Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
+Export-Package: de.mxro.xstream;uses:="org.w3c.tidy,org.w3c.dom,javax.
+ swing,de.mxro.xml,org.xml.sax.helpers,org.xml.sax",de.mxro.xstream.de
+ finitions;uses:="de.mxro.xstream,javax.swing,de.mxro.utils.log",de.mx
+ ro.xstream.definitions.freemind,de.mxro.xstream.filesystem.v01;uses:=
+ "de.mxro.utils,de.mxro.filesystem.v01"
+Embed-Directory: target/dependency
+Bundle-ClassPath: .,target/dependency/inclXStream-0.0.3-SNAPSHOT.jar
+Built-By: mx
+Tool: Bnd-0.0.357
 Bundle-Name: Unnamed - de.mxro.xstream:mxXStream:bundle:0.0.2-SNAPSHOT
-Bundle-SymbolicName: mxXStream;singleton:=true
+Created-By: Apache Maven Bundle Plugin
+Build-Jdk: 1.6.0_20
 Bundle-Version: 0.0.2.SNAPSHOT
-Import-Package: de.mxro.utils.log,
- de.mxro.xml,
- org.osgi.framework;version="1.3.0",
- org.w3c.tidy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: de.mxro.xstream,
- de.mxro.xstream.definitions,
- de.mxro.xstream.definitions.freemind,
- de.mxro.xstream.filesystem.v01
-Bundle-ClassPath: .,
- xstream-1.2.2.jar,
- xpp3_min-1.1.3.4.O.jar
+Bnd-LastModified: 1277787039593
+Bundle-ManifestVersion: 2
+Import-Package: de.mxro.filesystem.v01,de.mxro.utils,de.mxro.utils.log
+ ,de.mxro.xml,de.mxro.xstream,de.mxro.xstream.definitions,de.mxro.xstr
+ eam.definitions.freemind,de.mxro.xstream.filesystem.v01,javax.securit
+ y.auth,javax.swing,javax.swing.plaf,javax.xml.namespace,javax.xml.par
+ sers,javax.xml.stream,javax.xml.transform.sax,net.sf.cglib.proxy;reso
+ lution:=optional,nu.xom;resolution:=optional,org.codehaus.jettison.ma
+ pped;resolution:=optional,org.dom4j,org.dom4j.io,org.dom4j.tree,org.j
+ dom,org.jdom.input;resolution:=optional,org.jdom;resolution:=optional
+ ,org.joda.time;resolution:=optional,org.joda.time.format;resolution:=
+ optional,org.w3c.dom,org.w3c.tidy,org.xml.sax,org.xml.sax.helpers,sun
+ .misc;resolution:=optional,sun.reflect;resolution:=optional
+Embed-Dependency: inclXStream;scope=compile|runtime;inline=false
+Bundle-SymbolicName: mxXStream
+
