@@ -1,110 +1,132 @@
-<?xml version="1.0" encoding="UTF-8"?><project>
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>de.mxro.xstream</groupId>
-  <artifactId>mxXStream</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
-  <packaging>bundle</packaging>
-  <build>
-  
-  
-  	<!-- Resources -->
-    <resources>
-			<!-- This entry makes sure that resources, which lie in the same package as
-			     Java classes, are copied into the target. Often external libraries
-			     require resources, which are loaded using Class.getResource or
-			     Class.getResourceAsStream and which are in a subpackage of the class.
-			     For instance, the NetBeans template for the Swing Application Framework
-			     does so.  -->
-			<resource>
-				<filtering>false</filtering>
-				<directory>src/main/java</directory>
-				<includes>
-					<include>**</include>
-				</includes>
-				<excludes>
-					<exclude>**/*.java</exclude>
-				</excludes> 
-			</resource>
-			<!-- This entry makes sure component definitions for OSGi declarative services
-			     are copied into the destination  -->
-			<resource>
-				<targetPath>OSGI-INF</targetPath>
-				<filtering>false</filtering>
-				<directory>OSGI-INF</directory>
-			    <includes>
-					<include>**</include>
-				</includes>
-			</resource>
-			<!-- I really do not know why know a manual entry for src/main/resources is 
-			     necessary? It should be included following the Maven convention. -->
-			<resource>		
-				<filtering>false</filtering>
-				<directory>src/main/resources</directory>
-			    <includes>
-					<include>**</include>
-				</includes>
-			</resource>
-			
-			<resource>
-              <directory>${basedir}/target/dependency</directory>
-    
-            </resource>
-    </resources>
-    <!-- Resources End -->    
-    
-    <plugins>
-       <!--  The Maven bundle plugin generates Meta-data required for OSGi  -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	
+	<properties>
+		<module.group>de.mxro.xstream</module.group>       <!--  Maven groupId -->
+		<module.name>mxXStream</module.name>         <!--  Maven artifactId -->
+		<module.version>0.0.2-SNAPSHOT</module.version>   <!--  Maven artifact version -->
+		<module.description>Additional functionality for XStream library</module.description>
+		<module.url>http://www.mxro.de/</module.url>
+		<module.importedPackages>de.mxro.utils.log,
+							de.mxro.xml,org.w3c.tidy,
+							net.sf.cglib.proxy;resolution:=optional,
+							nu.xom;resolution:=optional,
+							org.codehaus.jettison.mapped;resolution:=optional,
+							org.jdom,org.jdom.input;resolution:=optional,
+							org.joda.time;resolution:=optional,
+							org.joda.time.format;resolution:=optional,
+							sun.misc;resolution:=optional,
+							sun.reflect;resolution:=optional,
+							org.jdom;resolution:=optional,
+							*
+		</module.importedPackages>
+		<module.exportedContents></module.exportedContents>
+		<module.exportedPackages>de.mxro.xstream,
+							de.mxro.xstream.definitions,
+							de.mxro.xstream.definitions.freemind,
+							de.mxro.xstream.filesystem.v01	
+		</module.exportedPackages>
+		<module.embeddedDependencies>inclXStream;inline=true
+		</module.embeddedDependencies>
+		<module.embedTransitive>false
+		</module.embedTransitive>
+		<module.serviceDefinitions>
+		</module.serviceDefinitions>
+	</properties>
+	
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>${module.group}</groupId>
+	<artifactId>${module.name}</artifactId>
+	<version>${module.version}</version>
+	<name>${module.name}</name>
+	<description>${module.description}</description>
+	<url>${module.url}</url>
+	<packaging>bundle</packaging>
+
+
+<!-- DEPENDENCIES -->
+	<dependencies>
+		 <dependency>
+			<groupId>de.mxro.utils</groupId>
+			<artifactId>mxUtilities</artifactId>
+			<version>[0.0.1,)</version>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
+			<groupId>de.mxro.xml</groupId>
+			<artifactId>mxXml</artifactId>
+			<version>[0.0.1,)</version>
+			<optional>false</optional>
+			<!-- <exclusions>
+        <exclusion> 
+          <groupId>de.mxro.utils</groupId>
+          <artifactId>mxUtilities</artifactId>
+        </exclusion>
+      </exclusions> -->
+		</dependency>
+		<dependency>
+			<groupId>de.mxro.thrd.jtidy</groupId>
+			<artifactId>thrdJTidy</artifactId>
+			<version>[8.0.0,)</version>
+			<optional>false</optional>
+		</dependency>
+		
+		<dependency>
+			<groupId>de.mxro.incl.xstream</groupId>
+			<artifactId>inclXStream</artifactId>
+			<version>[0.0.2,)</version>
+			<optional>false</optional>
+		</dependency>
+	</dependencies>
+
+
+
+	<build>
+
+
+		
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<!-- FOR BUNDLE MANAGEMENT -->
+			<!--  The Maven bundle plugin generates Meta-data required for OSGi  -->
+
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<extensions>true</extensions>
 				<configuration>
-					<unpackBundle>true</unpackBundle>
 					<instructions>
 						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
 						<Bundle-Version>${pom.version}</Bundle-Version>
-						  <Embed-Dependency>inclXStream;scope=compile|runtime;inline=false
+						<Import-Package>${module.importedPackages}</Import-Package>
+						<Export-Package>${module.exportedPackages}</Export-Package>
+						<Service-Component>${module.serviceDefinitions}
+						</Service-Component>
+						<Embed-Dependency>${module.embeddedDependencies}
 						</Embed-Dependency>
-						<Embed-Directory>target/dependency</Embed-Directory> 
-						<Export-Package>de.mxro.xstream,
- de.mxro.xstream.definitions,
- de.mxro.xstream.definitions.freemind,
- de.mxro.xstream.filesystem.v01</Export-Package>
-                        <Import-Package>de.mxro.utils.log,
- de.mxro.xml,org.w3c.tidy,
- net.sf.cglib.proxy;resolution:=optional,
- nu.xom;resolution:=optional,
- org.codehaus.jettison.mapped;resolution:=optional,
- org.jdom,org.jdom.input;resolution:=optional,
- org.joda.time;resolution:=optional,
- org.joda.time.format;resolution:=optional,
- sun.misc;resolution:=optional,
- sun.reflect;resolution:=optional,
- org.jdom;resolution:=optional,
- *</Import-Package> 
-						<!-- This statement can change the bundle classpath 
-						   <Bundle-ClassPath>.</Bundle-ClassPath> 
-						-->
-						<!-- This statements will use properties from the eclipse Manifest.MF file 
-						  <_include>META-INF/MANIFEST.MF</_include> 
-						-->
+						<Embed-Directory>target/dependency</Embed-Directory>
+						<Embed-Transitive>${module.embedTransitive}</Embed-Transitive>
+						<_exportcontents>${module.exportedContents}</_exportcontents>
 					</instructions>
 				</configuration>
 			</plugin>
-			
+
+<!-- MAVEN ECLIPSE PLUGIN -->
+               <!--
+				Dependency Plugin used to copy the dependency JARs into the root
+				project folder. There the Maven eclipse plugin will add them to the
+				classpath of PDE projects.
+			-->
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
-
 				<executions>
-					<!--
-						This additional execution can extract all the JARs of the dependencies 
-						
-						<execution> <id>unpack-dependencies</id>
-						<phase>generate-resources</phase> <goals>
-						<goal>unpack-dependencies</goal> </goals> <configuration>
-						<includeGroupIds>org.swinglabs,org.jdesktop,com.sun</includeGroupIds>
-						</configuration> </execution>
-					-->
 					<execution>
 						<id>copy-dependencies</id>
 						<phase>process-sources</phase>
@@ -121,7 +143,9 @@
 				</executions>
 			</plugin>
 
-			<!--  Cleanup necessary because of PDE tweaks -->
+			<!--
+				Cleanup necessary because of PDE tweaks, clear the project directory
+			-->
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>2.3</version>
@@ -137,16 +161,8 @@
 					</filesets>
 				</configuration>
 			</plugin>
-     
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-      
-       <!--
+
+			<!--
 				Keep the MANIFEST.MF used by eclipse in sync with the MANIFEST.MF
 				created by the maven bundle plugin
 			-->
@@ -167,82 +183,76 @@
 					</execution>
 				</executions>
 			</plugin>
-      <!--  <plugin>
-      	<groupId>org.apache.maven.plugins</groupId>
-      	<artifactId>maven-jar-plugin</artifactId>
-      	<configuration>
-      		<archive>
-      			<manifestFile>META-INF/MANIFEST.MF</manifestFile>
-      		</archive>
-        </configuration>
-      </plugin> 
-      
-    
-       <plugin>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>de.mxro.incl.xstream</groupId>
-                  <artifactId>inclXStream</artifactId>
-                  <version>0.0.2</version>
-                </artifactItem>
-              </artifactItems>
-              
-            </configuration>
-          </execution>
-        </executions>
-      </plugin> -->
-            
-    </plugins>
-  </build>
-  
-  <dependencies>
-  <dependency>
-  	<groupId>de.mxro.thrd.jtidy</groupId>
-  	<artifactId>thrdJTidy</artifactId>
-  	<version>[8.0.0,)</version>
-  	<optional>false</optional>
-  </dependency>
-  <dependency>
-  	<groupId>de.mxro.xml</groupId>
-  	<artifactId>mxXml</artifactId>
-  	<version>[0.0.2,)</version>
-  	<optional>false</optional>
-  </dependency>
-   <dependency>
-  	<groupId>de.mxro.utils</groupId>
-  	<artifactId>mxUtilities</artifactId>
-  	<version>[0.0.1,)</version>
-  	<optional>false</optional>
-  </dependency>
-    <dependency>
-  	<groupId>de.mxro.incl.xstream</groupId>
-  	<artifactId>inclXStream</artifactId>
-  	<version>[0.0.2,)</version>
-  	<optional>false</optional>
-  </dependency> 
-  </dependencies>
-  
-  
-  <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <name>Internal Releases</name>
-            <url>http://STF-6121-DSK06.com.auckland.ac.nz:8080/nexus/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>Internal Snapshots</name>
-            <url>http://STF-6121-DSK06.com.auckland.ac.nz:8080/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
-  
+
+
+		</plugins>
+		
+		
+		<!-- Resources -->
+		<resources>
+			<!--
+				This entry makes sure that resources, which lie in the same package
+				as Java classes, are copied into the target. Often external
+				libraries require resources, which are loaded using
+				Class.getResource or Class.getResourceAsStream and which are in a
+				subpackage of the class. For instance, the NetBeans template for the
+				Swing Application Framework does so.
+			-->
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+			<!--
+				This entry makes sure component definitions for OSGi declarative
+				services are copied into the destination
+			-->
+			<resource>
+				<targetPath>OSGI-INF</targetPath>
+				<filtering>false</filtering>
+				<directory>OSGI-INF</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+			</resource>
+			<!--
+				I really do not know why know a manual entry for src/main/resources
+				is necessary? It should be included following the Maven convention.
+			-->
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+			</resource>
+
+			
+		</resources>
+		<!-- Resources End -->
+		
+	</build>
+
+
+
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Internal Releases</name>
+			<url>http://STF-6121-DSK06.com.auckland.ac.nz:8080/nexus/content/repositories/releases
+			</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Internal Snapshots</name>
+			<url>http://STF-6121-DSK06.com.auckland.ac.nz:8080/nexus/content/repositories/snapshots
+			</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 </project>
