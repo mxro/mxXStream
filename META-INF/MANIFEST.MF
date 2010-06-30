@@ -12,7 +12,7 @@ Bundle-Name: Unnamed - de.mxro.xstream:mxXStream:bundle:0.0.2-SNAPSHOT
 Created-By: Apache Maven Bundle Plugin
 Build-Jdk: 1.6.0_20
 Bundle-Version: 0.0.2.SNAPSHOT
-Bnd-LastModified: 1277787039593
+Bnd-LastModified: 1277888261001
 Bundle-ManifestVersion: 2
 Import-Package: de.mxro.filesystem.v01,de.mxro.utils,de.mxro.utils.log
  ,de.mxro.xml,de.mxro.xstream,de.mxro.xstream.definitions,de.mxro.xstr

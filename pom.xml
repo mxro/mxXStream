@@ -217,6 +217,12 @@
   	<version>[0.0.2,)</version>
   	<optional>false</optional>
   </dependency>
+   <dependency>
+  	<groupId>de.mxro.utils</groupId>
+  	<artifactId>mxUtilities</artifactId>
+  	<version>[0.0.1,)</version>
+  	<optional>false</optional>
+  </dependency>
     <dependency>
   	<groupId>de.mxro.incl.xstream</groupId>
   	<artifactId>inclXStream</artifactId>
