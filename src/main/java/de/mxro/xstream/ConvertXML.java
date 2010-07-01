@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 
 import org.w3c.tidy.Tidy;
 
+import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
@@ -21,6 +22,7 @@ public class ConvertXML implements Converter {
 		tidy.setXmlOut(true);
 		tidy.setQuiet(true);
 		tidy.setOnlyErrors(true);
+		
 	}
 	
 	public void marshal(Object arg0, HierarchicalStreamWriter arg1,
