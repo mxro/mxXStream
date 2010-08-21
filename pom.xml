@@ -17,8 +17,8 @@
 							org.joda.time.format;resolution:=optional,
 							sun.misc;resolution:=optional,
 							sun.reflect;resolution:=optional,
-							org.jdom;resolution:=optional,
-							*
+							org.jdom;resolution:=optional,*
+							
 		</module.importedPackages>
 		<module.exportedContents></module.exportedContents>
 		<module.exportedPackages>de.mxro.xstream,
@@ -26,7 +26,7 @@
 							de.mxro.xstream.definitions.freemind,
 							de.mxro.xstream.filesystem.v01	
 		</module.exportedPackages>
-		<module.embeddedDependencies>inclXStream;inline=true
+		<module.embeddedDependencies>inclXStream;inline=false
 		</module.embeddedDependencies>
 		<module.embedTransitive>false
 		</module.embedTransitive>
@@ -135,6 +135,21 @@
 						</goals>
 						<configuration>
 							<outputDirectory>${basedir}</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+					<!-- for eclipse pde -->
+					 <execution>
+						<id>copy-dependencies2</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeArtifactIds>inclXStream</includeArtifactIds>
+							<outputDirectory>${basedir}/target/dependency</outputDirectory>
 							<overWriteReleases>false</overWriteReleases>
 							<overWriteSnapshots>false</overWriteSnapshots>
 							<overWriteIfNewer>true</overWriteIfNewer>
