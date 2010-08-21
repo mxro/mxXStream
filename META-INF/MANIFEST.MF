@@ -1,9 +1,6 @@
 Manifest-Version: 1.0
-Export-Package: de.mxro.xstream;uses:="org.w3c.tidy,org.w3c.dom,javax.
- swing,de.mxro.xml,org.xml.sax.helpers,org.xml.sax",de.mxro.xstream.de
- finitions;uses:="de.mxro.xstream,javax.swing,de.mxro.utils.log",de.mx
- ro.xstream.definitions.freemind,de.mxro.xstream.filesystem.v01;uses:=
- "de.mxro.utils,de.mxro.filesystem.v01"
+Export-Package: de.mxro.xstream.definitions.freemind,
+ de.mxro.xstream.filesystem.v01;uses:="de.mxro.utils,de.mxro.filesystem.v01"
 Embed-Directory: target/dependency
 Bundle-ClassPath: .,target/dependency/inclXStream-0.0.4-SNAPSHOT.jar
 Built-By: mx
@@ -21,8 +18,6 @@ Import-Package: de.mxro.filesystem.v01,
  de.mxro.utils,
  de.mxro.utils.log,
  de.mxro.xml,
- de.mxro.xstream,
- de.mxro.xstream.definitions,
  de.mxro.xstream.definitions.freemind,
  de.mxro.xstream.filesystem.v01,
  javax.security.auth,
