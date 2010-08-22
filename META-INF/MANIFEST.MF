@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Export-Package: de.mxro.xstream.definitions.freemind,
- de.mxro.xstream.filesystem.v01;uses:="de.mxro.utils,de.mxro.filesystem.v01"
+Export-Package: de.mxro.xstream.definitions.freemind,de.mxro.xstream.f
+ ilesystem.v01;uses:="de.mxro.utils,de.mxro.filesystem.v01"
 Embed-Directory: target/dependency
 Bundle-ClassPath: .,target/dependency/inclXStream-0.0.4-SNAPSHOT.jar
 Built-By: mx
@@ -9,7 +9,7 @@ Bundle-Name: mxXStream
 Created-By: Apache Maven Bundle Plugin
 Build-Jdk: 1.6.0_20
 Bundle-Version: 0.0.2.SNAPSHOT
-Bnd-LastModified: 1282288513034
+Bnd-LastModified: 1282370142424
 Embed-Transitive: false
 Bundle-ManifestVersion: 2
 Bundle-Description: Additional functionality for XStream library
