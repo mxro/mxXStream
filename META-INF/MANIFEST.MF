@@ -11,30 +11,18 @@ Bundle-Name: mxXStream
 Created-By: Apache Maven Bundle Plugin
 Build-Jdk: 1.6.0_27
 Bundle-Version: 0.0.2.SNAPSHOT
-Bnd-LastModified: 1316054327350
+Bnd-LastModified: 1316150538345
 Embed-Transitive: false
 Bundle-ManifestVersion: 2
 Bundle-Description: Additional functionality for XStream library
-Import-Package: com.thoughtworks.xstream,
- com.thoughtworks.xstream.annotations,
- com.thoughtworks.xstream.converters,
- com.thoughtworks.xstream.io,
- de.mxro.filesystem.v01,
- de.mxro.utils,
- de.mxro.utils.log,
- de.mxro.xml,
- de.mxro.xstream.definitions.freemind,
- de.mxro.xstream.filesystem.v01,
- net.sf.cglib.proxy;resolution:=optional,
- nu.xom;resolution:=optional,
- org.codehaus.jettison.mapped;resolution:=optional,
- org.jdom;resolution:=optional,
- org.jdom.input;resolution:=optional,
- org.joda.time;resolution:=optional,
- org.joda.time.format;resolution:=optional,
- org.w3c.tidy,
- sun.misc;resolution:=optional,
- sun.reflect;resolution:=optional
+Import-Package: com.thoughtworks.xstream,com.thoughtworks.xstream.anno
+ tations,com.thoughtworks.xstream.converters,com.thoughtworks.xstream.
+ io,de.mxro.filesystem.v01,de.mxro.utils,de.mxro.utils.log,de.mxro.xml
+ ,de.mxro.xstream.definitions.freemind,de.mxro.xstream.filesystem.v01,
+ net.sf.cglib.proxy;resolution:=optional,nu.xom;resolution:=optional,o
+ rg.codehaus.jettison.mapped;resolution:=optional,org.jdom;resolution:
+ =optional,org.jdom.input;resolution:=optional,org.joda.time;resolutio
+ n:=optional,org.joda.time.format;resolution:=optional,org.w3c.tidy,su
+ n.misc;resolution:=optional,sun.reflect;resolution:=optional
 Bundle-SymbolicName: mxXStream
-Embed-Dependency: inclXStream
 
